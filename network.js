@@ -22,34 +22,34 @@ class Level{
         this.biases = new Array(outputCount);
 
         this.weights = [];
-        for(let i =0; i<outputCount; i++){
+        for(let i =0; i<inputCount; i++){
             this.weights[i] = new Array(outputCount);
         }
         Level.#randomize(this);
     }
-    static #randomize(Level){
-        for (let i = 0; i < inputs.length; i++) {
-            for (let j = 0; j < outputs.length; j++) {
-                Level.weights[i][j] = Math.random()*2-1;
+    static #randomize(level){
+        for (let i = 0; i < level.inputs.length; i++) {
+            for (let j = 0; j < level.outputs.length; j++) {
+                level.weights[i][j] = Math.random()*2-1;
             }
         }
-        for (let i = 0; i < Level.biases.length; i++) {
-            Level.biases[i] = Math.random()*2-1; 
+        for (let i = 0; i < level.biases.length; i++) {
+            level.biases[i] = Math.random()*2-1; 
         }
     }
 
-    static feedForward(givenInputs, Level){
-        for(let i =0; i<Level.inputs.length; i++){
-            Level.inputs[i] = givenInputs[i];
+    static feedForward(givenInputs, level){
+        for(let i =0; i<level.inputs.length; i++){
+            level.inputs[i] = givenInputs[i];
         }
-        for(let i =0; i<Level.outputs.length; i++){
+        for(let i =0; i<level.outputs.length; i++){
             let sum = 0 ;
-            for(let j =0; j<Level.inputs.length; j++){
-                sum += Level.inputs[j] *Level.weights[j][i];
+            for(let j =0; j<level.inputs.length; j++){
+                sum += level.inputs[j] *level.weights[j][i];
             }
-            if(sum>Level.biases[i]) Level.outputs[i] = 1;
-            else Level.outputs[i] = 0;
+            if(sum>level.biases[i]) level.outputs[i] = 1;
+            else level.outputs[i] = 0;
         }
-        return Level.outputs;
+        return level.outputs;
     }
 }
